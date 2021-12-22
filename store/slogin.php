@@ -166,7 +166,7 @@ header("location: shome.php"); // Redirecting To Profile Page
 <div class="col-sm-12 mb-3">  
 			  
   <div class="nav nav-tabs nav-fill bg-gradient-default" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active font-weight-bold text-primary" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Admin Login</a>
+    <a class="nav-item nav-link active font-weight-bold text-primary" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Store Login</a>
 
   </div>
                   
@@ -181,7 +181,7 @@ header("location: shome.php"); // Redirecting To Profile Page
                         
 					<div class="form-group row">
                     <label for="name" class="col-md-3 col-form-label"
-                      ><h6 class="text-white font-weight-bold">Admin ID</h6>
+                      ><h6 class="text-white font-weight-bold">Store ID</h6>
                     </label>
                     <div class="col-md-9">
                       <input

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2021 at 11:22 AM
+-- Generation Time: Dec 22, 2021 at 12:19 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -37,7 +37,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`ANAME`, `APASS`) VALUES
-('admin', 'admin');
+('admin', 'password');
 
 -- --------------------------------------------------------
 
@@ -58,11 +58,9 @@ CREATE TABLE `dstbr` (
 --
 
 INSERT INTO `dstbr` (`DID`, `DNAME`, `DPASS`, `DTYPE`, `DLOC`) VALUES
-(1000, 'Fritolay', 'admin', 'Electrical', 'Delhi'),
+(1000, 'Asus', 'password', 'Laptop', 'Bangalore'),
 (1001, 'Pepsico', 'admin', 'CoolDrinks', 'Hyd'),
-(1002, 'abshetty', 'admin', 'wholesa.e', 'biomay'),
-(1003, 'abshetty', 'admin', 'Electrical', 'Bombay'),
-(1004, 'test', 'admin', 'test', 'test');
+(1003, 'abshetty', 'admin', 'Electrical', 'Bombay');
 
 -- --------------------------------------------------------
 
@@ -82,10 +80,8 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`SALESID`, `SDATE`, `SCOST`, `SID`) VALUES
-(222, '22/11/2018', 40079, 100),
-(227, '11/11/2018', 59879, 100),
-(228, '27/11/2018', 60000, 100),
-(229, '25/11/2018', 70000, 100);
+(201, '2021-12-21', 10000, 100),
+(231, '2021-12-21', 2000, 100);
 
 -- --------------------------------------------------------
 
@@ -128,10 +124,10 @@ CREATE TABLE `store` (
 --
 
 INSERT INTO `store` (`SID`, `SPASS`, `SBRANCHNAME`, `SCITY`, `SREGION`, `SSTATE`, `SPCODE`) VALUES
-(100, 'admin', 'Branch2', 'zhb', 'south', 'Tela', 222),
-(101, 'admin', 'Silk Point', 'Bidar', 'North Karnataka', 'Karnataka', 585401),
-(102, 'admin', 'D Mart', 'Udupi', 'South India', 'Karnataka', 576210),
-(103, 'admin', 'Big Bazar', 'Manglore', 'South India', 'Karnataka', 576210);
+(100, 'password', 'Madhuvana', 'Udupi', 'South India', 'Karnataka', 576230),
+(101, 'password', 'Silk Zone', 'Mangalore', 'South India', 'Karnataka', 573467),
+(102, 'password', 'D Mart', 'Udupi', 'South India', 'Karnataka', 576210),
+(103, 'password', 'Big Bazar', 'Manglore', 'South India', 'Karnataka', 576210);
 
 -- --------------------------------------------------------
 
@@ -154,15 +150,11 @@ CREATE TABLE `strorders` (
 --
 
 INSERT INTO `strorders` (`SID`, `ORDID`, `DID`, `ORDDATE`, `PMYSTAT`, `SHPMODE`, `SHPSTAT`) VALUES
-(100, 500, 1000, '2018-11-20 20:52:59', '', 'Premium', 'Delivered'),
-(0, 501, 1000, '2018-11-20 21:14:45', 'PAID', 'Normal', 'PENDING'),
-(100, 502, 1000, '2018-11-20 21:15:45', 'PAID', 'Premium', 'Delivered'),
-(100, 503, 1000, '2018-11-20 21:20:11', 'PAID', 'Normal', 'PENDING'),
-(100, 504, 1000, '2018-11-20 21:37:23', '', 'Normal', 'PENDING'),
-(100, 505, 1000, '2018-11-20 21:39:46', '', 'Normal', 'PENDING'),
-(100, 506, 1000, '2018-11-21 13:46:39', '', 'Normal', 'PENDING'),
-(100, 507, 1000, '2018-11-22 09:47:29', '', 'Normal', 'PENDING'),
-(100, 508, 1000, '2018-11-30 15:11:59', '', 'Normal', 'PENDING');
+(100, 509, 1000, '2021-12-21 16:14:17', 'PAID', 'PREMIUM', 'DELIVERED'),
+(100, 510, 1003, '2021-12-21 16:14:22', 'PENDING', 'Normal', 'PENDING'),
+(100, 511, 1001, '2021-12-21 16:14:32', 'PENDING', 'Normal', 'PENDING'),
+(100, 512, 1000, '2021-12-21 17:11:03', 'UNPAID', 'NORMAL', 'PENDING'),
+(100, 513, 1003, '2021-12-21 17:24:00', 'PENDING', 'Normal', 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -180,46 +172,35 @@ CREATE TABLE `t` (
 --
 
 INSERT INTO `t` (`temp`, `tee`) VALUES
-('', '2018-11-30 19:21:11'),
-('', '2018-11-30 19:21:32'),
-('501', '2018-11-30 19:22:00'),
-('503', '2018-11-30 19:25:07'),
-('501', '2018-11-30 19:25:20'),
-('502', '2018-11-30 19:25:47'),
-('501', '2018-11-30 19:31:55'),
-('501', '2018-11-30 19:34:22'),
-('501', '2018-11-30 19:34:27'),
-('505', '2018-11-30 19:34:30'),
-('502', '2018-11-30 19:35:50'),
-('506', '2018-11-30 19:35:54'),
-('503', '2018-11-30 19:36:36'),
-('501', '2018-11-30 19:37:40'),
-('501', '2018-11-30 19:38:26'),
-('501', '2018-11-30 19:38:41'),
-('501', '2018-11-30 19:39:42'),
-('502', '2018-11-30 19:47:54'),
-('503', '2018-11-30 19:47:56'),
-('503', '2018-11-30 19:49:10'),
-('505', '2018-11-30 19:49:13'),
-('505', '2018-11-30 19:49:15'),
-('501', '2018-11-30 19:49:17'),
-('503', '2018-11-30 19:50:47'),
-('501', '2018-11-30 19:50:53'),
-('502', '2018-11-30 19:52:55'),
-('502', '2018-11-30 19:53:10'),
-('502', '2018-11-30 19:53:32'),
-('SCITY', '2018-11-30 19:56:55'),
-('SREGION', '2018-11-30 19:58:50'),
-('SBRANCHNAME', '2018-11-30 19:59:08'),
-('SBRANCHNAME', '2018-12-01 04:09:12'),
-('501', '2018-12-01 04:15:09'),
-('SBRANCHNAME', '2021-12-20 14:20:36'),
-('None', '2021-12-21 08:12:46'),
-('SCITY', '2021-12-21 08:12:52'),
-('SSTATE', '2021-12-21 08:26:08'),
-('SCITY', '2021-12-21 08:26:21'),
-('SREGION', '2021-12-21 08:26:30'),
-('SCITY', '2021-12-21 08:26:46');
+('509', '2021-12-22 06:47:54'),
+('509', '2021-12-22 06:48:09'),
+('509', '2021-12-22 06:48:19'),
+('509', '2021-12-22 06:50:38'),
+('509', '2021-12-22 06:55:28'),
+('509', '2021-12-22 09:44:06'),
+('509', '2021-12-22 10:14:49'),
+('509', '2021-12-22 10:14:58'),
+('509', '2021-12-22 10:15:25'),
+('509', '2021-12-22 10:16:05'),
+('509', '2021-12-22 10:17:41'),
+('509', '2021-12-22 10:18:27'),
+('512', '2021-12-22 10:24:07'),
+('509', '2021-12-22 10:25:45'),
+('509', '2021-12-22 10:26:10'),
+('509', '2021-12-22 10:35:54'),
+('512', '2021-12-22 10:36:03'),
+('512', '2021-12-22 10:36:46'),
+('509', '2021-12-22 10:37:14'),
+('509', '2021-12-22 10:38:11'),
+('509', '2021-12-22 10:42:24'),
+('509', '2021-12-22 10:42:46'),
+('509', '2021-12-22 10:42:56'),
+('509', '2021-12-22 10:43:03'),
+('509', '2021-12-22 10:43:16'),
+('512', '2021-12-22 10:43:22'),
+('512', '2021-12-22 10:43:32'),
+('509', '2021-12-22 10:50:39'),
+('SREGION', '2021-12-22 11:07:26');
 
 --
 -- Indexes for dumped tables
@@ -264,13 +245,13 @@ ALTER TABLE `strorders`
 -- AUTO_INCREMENT for table `dstbr`
 --
 ALTER TABLE `dstbr`
-  MODIFY `DID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
+  MODIFY `DID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1010;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `SALESID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
+  MODIFY `SALESID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT for table `store`
@@ -282,7 +263,7 @@ ALTER TABLE `store`
 -- AUTO_INCREMENT for table `strorders`
 --
 ALTER TABLE `strorders`
-  MODIFY `ORDID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=509;
+  MODIFY `ORDID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=514;
 
 --
 -- Constraints for dumped tables

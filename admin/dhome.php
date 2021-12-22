@@ -109,7 +109,7 @@ header("location: index.php"); // Redirecting To Home Page
 		  	 <li class="nav-item">
               <a href="dhome.php" class="nav-link">
                 <span class="text-success nav-link-inner--text font-weight-bold"
-                  ><i class="text-success fad fa-home"></i> Home</span
+                  ><i class="text-success fas fa-home"></i> Home</span
                 >
               </a>
             </li>
@@ -117,7 +117,7 @@ header("location: index.php"); // Redirecting To Home Page
 		   <li class="nav-item">
               <a href="sales.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fad fa-award"></i> Sales Report</span
+                  ><i class="text-white fas fa-list-alt"></i> Sales Report</span
                 >
               </a>
             </li>
@@ -126,7 +126,7 @@ header("location: index.php"); // Redirecting To Home Page
 			 <li class="nav-item">
               <a href="distd.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-user-circle"></i> Distributor Details</span
+                  ><i class="text-white fas fa-users"></i> Distributor Details</span
                 >
               </a>
             </li>
@@ -134,7 +134,7 @@ header("location: index.php"); // Redirecting To Home Page
 			<li class="nav-item">
               <a href="stored.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-user-circle"></i> Store Details</span
+                  ><i class="text-white fad fa-store-alt"></i> Store Details</span
                 >
               </a>
             </li>

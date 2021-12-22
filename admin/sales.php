@@ -109,7 +109,7 @@ header("location: index.php"); // Redirecting To Home Page
 		  	 <li class="nav-item">
               <a href="dhome.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fad fa-home"></i> Home</span
+                  ><i class="text-white fas fa-home"></i> Home</span
                 >
               </a>
             </li>
@@ -117,7 +117,7 @@ header("location: index.php"); // Redirecting To Home Page
 		   <li class="nav-item">
               <a href="sales.php" class="nav-link">
                 <span class="text-success nav-link-inner--text font-weight-bold"
-                  ><i class="text-success fad fa-award"></i> Sales Report</span
+                  ><i class="text-success fas fa-list-alt"></i> Sales Report</span
                 >
               </a>
             </li>
@@ -126,7 +126,7 @@ header("location: index.php"); // Redirecting To Home Page
 			 <li class="nav-item">
               <a href="distd.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-user-circle"></i> Distributor Details</span
+                  ><i class="text-white fas fa-users"></i> Distributor Details</span
                 >
               </a>
             </li>
@@ -134,7 +134,7 @@ header("location: index.php"); // Redirecting To Home Page
 			<li class="nav-item">
               <a href="stored.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-user-circle"></i> Store Details</span
+                  ><i class="text-white fad fa-store-alt"></i> Store Details</span
                 >
               </a>
             </li>
@@ -182,37 +182,63 @@ header("location: index.php"); // Redirecting To Home Page
           <div class="row row-content">
             <div class="col-md-12 mb-3">
 			
-			<!--Dropdwn sectn for sales by type-->
+			
+				<div class="card text-white bg-gradient-primary mb-3">
+				  <div class="card-header">
+				  <span class=" text-primary display-4" > Sales By  </span>
+				  
+				  </div>
+				  
+				  <div class="card-body text-white">
+	
+<!--Dropdwn sectn for sales by type-->
 <form method="POST">
-    <table><h4>Sales by:
-      <select name="ssalescat" >
-        <option selected="" hidden="" value="None" >Category</option>
-        <option value="SBRANCHNAME">Branch</option>
-        <option value="SCITY">City</option>
-        <option value="SREGION">Region</option>
-        <option value="SSTATE">State</option>
-        <input type="submit" name="submitsales" value="Next">
-      </select>
 
-    <?php
-   
+<div class="form-group row">
+ 			
+                <div class=" col-md-9">
+                  <select name="ssalescat" class="form-control">
+						<option selected="" hidden="" value="None" >Category</option>
+					    <option value="SBRANCHNAME">Branch</option>
+						<option value="SCITY">City</option>
+						<option value="SREGION">Region</option>
+						<option value="SSTATE">State</option>
+				</select>
+				</div>
+				
+                <div class=" col-md-3">
+                  <button class="btn btn-warning form-control" name="submitsales" type="submit" value="Next">
+                  Next
+                  </button>
+                </div>
+	 </div>
+
+<?php   
      if(isset($_POST['submitsales']))
        {$catsv = ($_POST['ssalescat']);
-        $pl="Selected Category:";
-        echo '<h5>',$pl,$catsv,'</h5></form>';
+        $pl="Selected Category: ";
+        echo "<h4 class=\" font-weight-bold text-white\">",$pl,$catsv,"</h4></form>";
         $query1122 = "INSERT into t(temp) values ('$catsv')";
         mysqli_query($conn, $query1122);
-        echo '<form method="POST"><h4>Choose:';
+        echo "<form method=\"POST\">
+		<h4 class=\" font-weight-bold text-white\"> ";
+		echo "<div class=\"form-group row\">";
               $query1112 = "SELECT Distinct $catsv FROM store";
               $ses_sq2 = mysqli_query($conn,$query1112);
-            $select12= '<select name="select2112">
-               <option selected hidden>Select</option>';     
+            $select12= "<select class=\" col-md-9 font-weight-bold form-control\" name=\"select2112\">
+               <option selected hidden> Choose </option>";     
              while($rs12 = mysqli_fetch_assoc($ses_sq2))
               {
               $select12.='<option value="'.$rs12[$catsv].'">'.$rs12[$catsv].'</option>';
               }
-              $select12.='</select><br><input name="submitcs2" type="submit" value="Next"></h4></form></h4></table>';
-              echo $select12;
+              $select12.="</select>
+			  <div class=\" col-md-3\">
+                  <button class=\"btn btn-success form-control\" name=\"submitcs2\" type=\"submit\" value=\"Submit\">
+                  Submit
+                  </button>
+                </div>
+			  </h4></div></form>";
+              echo $select12,'</h4>';
 }
       if(isset($_POST['submitcs2']))
            {
@@ -222,31 +248,29 @@ header("location: index.php"); // Redirecting To Home Page
         $catsv=$rs12['temp'];
         
         $catsv1 = ($_POST['select2112']);echo $catsv1;
-         echo '
-        <table>
-        <tr>
+         echo "
+        <table class=\" table table-striped table-hover table-bordered text-center text-dark\">
+        <tr class=\" font-weight-bold \">
           <th>Sales ID</th>
           <th>Sales Date</th>
           <th>Sales Cost</th>
           <th>Store_ID</th>
           <th>Store Name</th>
           <th>Store City</th>
-        </tr>';
+        </tr>";
         echo $catsv,":",$catsv1;
       $order59 ="select sa.*,st.SBRANCHNAME,st.SCITY from sales sa,store st where sa.sid=st.sid";
       $food9 = mysqli_query($conn, $order59);
       
       while($oss55 = mysqli_fetch_assoc($food9))
-      {echo '<tr>
-  <td>'. $oss55["SALESID"]."</td>
-  <td>". $oss55["SDATE"] . "</td>
-  <td>". $oss55["SCOST"]. "</td>
-  <td>".$oss55["SID"]."</td>
-  <td>".$oss55["SBRANCHNAME"]."</td>
-  <td>". $oss55["SCITY"]."</td></tr></table>";
+      {echo '<tr><td>'. $oss55["SALESID"]."</td><td>". $oss55["SDATE"] . "</td><td>". $oss55["SCOST"]. "</td><td>".$oss55["SID"]."</td><td>".$oss55["SBRANCHNAME"]."</td><td>". $oss55["SCITY"]."</td></tr>";
       }
     } 
 ?>
+
+				  </div>
+				  
+				</div>
 					 		  
             </div>
 	
@@ -254,9 +278,8 @@ header("location: index.php"); // Redirecting To Home Page
         </div>
 		 
 </section>
+    
 
-   
 </body>
- <?php require("../footer.php");?>
 
 </html>
