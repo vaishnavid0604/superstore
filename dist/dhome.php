@@ -8,29 +8,18 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
               $para1 = $row4['DID'];
               $para2 = $row4['DNAME'];
               $para3 = $row4['DTYPE'];
-              $para4 = $row4['DPASS'];
 			  $para5 = $row4['DLOC'];
-              if(isset($_POST['submitpa']))
-  {$updtname = ($_POST['inputpa']);
-    $updatequery1 = "UPDATE dstbr set DPASS='$updtname' where DID='$para1'";mysqli_query($conn, $updatequery1);
-    header("Refresh:0");}
-
-    if(isset($_POST['submitn']))
-  {$updtname = ($_POST['inputn']);
-    $updatequery1 = "UPDATE dstbr set DNAME='$updtname' where DID='$para1'";mysqli_query($conn, $updatequery1);
-    header("Refresh:0");}
-	
-	if(isset($_POST['submitloc']))
-  {$updtname = ($_POST['inputloc']);
-    $updatequery1 = "UPDATE dstbr set DLOC='$updtname' where DID='$para1'";mysqli_query($conn, $updatequery1);
-    header("Refresh:0");}
-
-    if(isset($_POST['submitpt']))
-  {$updtname = ($_POST['inputpt']);
-    $updatequery1 = "UPDATE dstbr set DTYPE='$updtname' where DID='$para1'";mysqli_query($conn, $updatequery1);
-    header("Refresh:0");}
-	
-
+			  $para6 = $row4['DPASS'];
+              if(isset($_POST['submit']))
+  {
+	  $id = ($_POST['id']);
+	  $name = ($_POST['name']);
+	  $type = ($_POST['type']);
+	  $loc = ($_POST['loc']);
+	  $pass = ($_POST['pass']);
+    $updatequery1 = "UPDATE dstbr set  DNAME='$name',  DLOC='$loc', DTYPE='$type', DPASS='$pass'  where DID='$id'";mysqli_query($conn, $updatequery1);
+  header("location: dhome.php");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -60,14 +49,7 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
 
  
   <link rel="stylesheet" href="../assets/css/creativetim.min.css" type="text/css">
-  
 
-  <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_b315629468470fd1230c5a1bec6c00575'
-    });
-</script>
 
 </head>
 
@@ -151,14 +133,6 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
               </a>
             </li>
 			
-			<li class="nav-item">
-              <a href="dordupdate.php" class="nav-link">
-                <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-wrench"></i> Order Update</span
-                >
-              </a>
-            </li>
-			
 			
 		  
 		   <li class="nav-item">
@@ -206,7 +180,7 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
 				<div class="card">
                 <div class="card-body bg-gradient-warning">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="../assets/img/teacher.jpg" alt="student" class="rounded-circle" width="138">
+                    <img src="../assets/img/dist.png" alt="student" class="rounded-circle img-fluid" width="211px">
                     <div class="mt-3">
                       <h4>                Welcome     <?php echo $login_session ?></h4>
                       		  <button data-toggle="modal" data-target="#edit" class="btn btn-danger">Edit Profile</button>
@@ -263,6 +237,16 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
                     </div>
                   </div>
                    <br>
+				   
+				       <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0 font-weight-bold">Password</h6>
+                    </div>
+                    <div class="col-sm-9 text-dark">
+                      <?php echo $para6 ?>
+                    </div>
+                  </div>
+                   <br>
 
 				  
                 </div>
@@ -293,57 +277,64 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
               <div class="form-group row">
                 <label
                   for="name"
-                  class="col-md-2 col-form-label text-white"
+                  class="col-md-3 col-form-label text-white"
                   >Distributor ID</label
                 >
-                <div class="col-md-10">
+                <div class="col-md-9">
                   <input
+				  name="id"
                     class="form-control "
-                    placeholder="<?php echo "$para1"?>"
+                    value="<?php echo "$para1"?>"
                     readonly
                   />
                 </div>
               </div>
 			  
 			   <div class="form-group row">
-                <label for="staffid" class="col-md-2 col-form-label text-white" > Distributor Name </label>
-                <div class="col-md-8">
-                  <input class="form-control" type="text" name="inputn" placeholder="<?php echo "$para2"?>" />
-                </div>
-				<div class="col-md-2">
-                  <input class="form-control btn-success" type="submit" name="submitn" />
+                <label for="staffid" class="col-md-3 col-form-label text-white" > Distributor Name </label>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" name="name" value="<?php echo "$para2"?>" />
+                </div>				
+              </div>
+			  
+			  <div class="form-group row">
+                <label for="staffid" class="col-md-3 col-form-label text-white" > Product Type </label>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" name="type" value="<?php echo "$para3"?>" />
                 </div>
               </div>
 			  
 			  <div class="form-group row">
-                <label for="staffid" class="col-md-2 col-form-label text-white" > Product Type </label>
-                <div class="col-md-8">
-                  <input class="form-control" type="text" name="inputpt" placeholder="<?php echo "$para3"?>" />
-                </div>
-				<div class="col-md-2">
-                  <input class="form-control btn-success" type="submit" name="submitpt" />
+                <label for="staffid" class="col-md-3 col-form-label text-white" > Location </label>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" name="loc" value="<?php echo "$para5"?>" />
                 </div>
               </div>
 			  
-			  <div class="form-group row">
-                <label for="staffid" class="col-md-2 col-form-label text-white" > Location </label>
-                <div class="col-md-8">
-                  <input class="form-control" type="text" name="inputloc" placeholder="<?php echo "$para5"?>" />
-                </div>
-				<div class="col-md-2">
-                  <input class="form-control btn-success" type="submit" name="submitloc" />
-                </div>
+			  		 <div class="form-group row">
+                <label for="staffid" class="col-md-3 col-form-label text-white" > Password </label>
+			   <div class="col-9">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
               </div>
-
+              <input name="pass" type="password" value="<?php echo "$para6"?>" class="input form-control" id="password" placeholder="password" required="true" aria-label="password" aria-describedby="basic-addon1" />
+              <div class="input-group-append">
+                <span class="input-group-text" onclick="password_show_hide();">
+                  <i class="fas fa-eye" id="show_eye"></i>
+                  <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+		   </div>
 			  
-			  <div class="form-group row">
-                <label for="staffid" class="col-md-2 col-form-label text-white" > Password </label>
-                <div class="col-md-8">
-                  <input class="form-control" type="text" name="inputpa" placeholder="*******" />
-                </div>
-				<div class="col-md-2">
-                  <input class="form-control btn-success" type="submit" name="submitpa" />
-                </div>
+			  
+			   <div class="form-group row">
+                <label for="staffid" class="col-md-3 col-form-label text-white" >  </label>
+                <div class="col-md-9">
+            <button name="submit" class=" btn-block btn btn-success"><span class="glyphicon glyphicon-edit"></span> Submit</button>		
+                </div>		
               </div>
 
             </form>
@@ -359,8 +350,24 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
 		 
 </section>
 
-    <?php require("../footer.php");?>
+    <?php require("footer.php");?>
 
 </body>
-
+  <script>
+  function password_show_hide() {
+  var x = document.getElementById("password");
+  var show_eye = document.getElementById("show_eye");
+  var hide_eye = document.getElementById("hide_eye");
+  hide_eye.classList.remove("d-none");
+  if (x.type === "password") {
+    x.type = "text";
+    show_eye.style.display = "none";
+    hide_eye.style.display = "block";
+  } else {
+    x.type = "password";
+    show_eye.style.display = "block";
+    hide_eye.style.display = "none";
+  }
+}
+</script>
 </html>

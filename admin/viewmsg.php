@@ -106,13 +106,13 @@ header("location: index.php"); // Redirecting To Home Page
                 >
               </a>
             </li>
-
+		  
 			
 			
 			 <li class="nav-item">
               <a href="distd.php" class="nav-link">
-                <span class="text-success nav-link-inner--text font-weight-bold"
-                  ><i class="text-success fas fa-users"></i> Distributors</span
+                <span class="text-white nav-link-inner--text font-weight-bold"
+                  ><i class="text-white fas fa-users"></i> Distributors</span
                 >
               </a>
             </li>
@@ -127,8 +127,8 @@ header("location: index.php"); // Redirecting To Home Page
 			
 			<li class="nav-item">
               <a href="viewmsg.php" class="nav-link">
-                <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-address-card"></i> Queries</span
+                <span class="text-success nav-link-inner--text font-weight-bold"
+                  ><i class="text-success fas fa-address-card"></i> Queries</span
                 >
               </a>
             </li>
@@ -169,153 +169,57 @@ header("location: index.php"); // Redirecting To Home Page
     
     	 <div class="row">
           <div class="col-md-8 mx-auto text-center">
-            <span class="badge badge-danger badge-pill mb-3">Distributors</span>
+            <span class="badge badge-danger badge-pill mb-3">Contact</span>
           </div>
         </div>
 		
           <div class="row row-content">
             <div class="col-md-12 mb-3">
 
-
-
-				<div class="card text-white bg-gradient-info mb-3">
+				<div class="card text-white bg-gradient-success mb-3">
 				  <div class="card-header">
-				  <span class=" text-primary display-4" > Distributor Details  </span>
+				  <span class=" text-warning display-4" > Contact Queries  </span>
 				  
-					 <button class=" btn btn-success pull-right" data-toggle="modal" data-target="#dist">
-                        ADD
-                      </button>
+					
 				  </div>
 				  
 				  <div class="card-body text-white">
-					 <table class="table table-striped table-hover table-bordered bg-gradient-white text-center">
+				    <table class="table table-striped table-hover table-bordered bg-gradient-white text-center">
 						<tr class="font-weight-bold text-default">
-						  <th>Distributor ID</th>
-						  <th>Distributor Name</th>
-						  <th>Type</th>
-						  <th>Warehouse Location</th>
-						  <th>Delete</th>
-
+						
+								<th> ID </th>
+								 <th> Name </th>
+								 <th> Mobile No. </th>
+								 <th> Email </th>
+								 <th> Address </th>
+								 <th> Messgae </th>
 						</tr>
 						
+	
+							  
+							  
 						<?php 
-					  $order59 ="call distributordetails";
-					  $food9 = mysqli_query($conn, $order59);
-					  while($res = mysqli_fetch_assoc($food9))
-					  {
-						  $dname=$res['DNAME'];
-							$id=$res['DID'];
-							$type=$res['DTYPE'];
-							$loc=$res['DLOC'];
-							
+					$q = "select * from view_queries";
+
+								$query = mysqli_query($conn,$q);
+
+								while($res = mysqli_fetch_array($query)){	
 				 ?>		  
-				 
-				 				<tr>
-				<td><?php echo $id ?></td>
-				  <td><?php echo $dname ?></td>
-				  <td><?php echo $type ?></td>
-				  <td><?php echo $loc ?></td>
-				
-	<td data-label="delete"> <button class="btn btn-sm btn-danger" > <a href="deletedist.php?did=<?php echo $id ?>" class="nav-link text-white"  data-toggle="tooltip">Delete</a> </button> </td>
+						  
+		 <tr class="text-center">
+							 <td> <?php echo $res['c_id'];  ?> </td>
+							 <td> <?php echo $res['c_name'];  ?> </td>
+							 <td> <?php echo $res['c_mobile'];  ?> </td>
+							 <td> <?php echo $res['c_email'];  ?> </td>
+							 <td> <?php echo $res['c_address'];  ?> </td>
+							 <td> <?php echo $res['c_message'];  ?> </td></tr>
 
-					</tr>
-					
-			<?php
-			
-			}
-				?>
-
-				  </table>	
+							 <?php 
+							 }
+							  ?>
+				  </table>			
 				  </div>
 				</div>
-
-    <!-- another Login Modal -->
-
-    <div id="dist" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-lg" role="content">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">ADD New Distributor</h4>
-            <button type="button" class="close" data-dismiss="modal">
-              &times;
-            </button>
-          </div>
-          <div class="modal-body bg-gradient-info">
-		  		
-
-				
-            <form
-              class="col s12 l5 white-text"
-              action="custcmp.php"
-              method="POST"
-              autocomplete="new-password"
-            >
-             
-			      <div class="form-group row">
-                <label class="col-md-2 col-form-label text-white" for="email"
-                  >Distributor Name</label
-                >
-                <div class="col-md-10">
-                  <input
-                    autocomplete="new-password"
-                    class="white-text validate form-control"
-                    placeholder="Name"
-                    id="email"
-                    name="username"
-                    type="text"
-                    class="validate"
-                  />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-md-2 col-form-label text-white" for="email"
-                  >Distributor Type</label
-                >
-                <div class="col-md-10">
-                  <input
-                    autocomplete="new-password"
-                    class="white-text validate form-control"
-                    placeholder="Type Eg:Electronics"
-                    id="email"
-                    name="age"
-                    type="text"
-                    class="validate"
-                  />
-                </div>
-              </div>
-			  
-			  <div class="form-group row">
-                <label class="col-md-2 col-form-label text-white" for="email"
-                  >Distributor Location</label
-                >
-                <div class="col-md-10">
-                  <input
-                    autocomplete="new-password"
-                    class="white-text validate form-control"
-                    placeholder="Location"
-                    id="email"
-                    name="gender"
-                    type="text"
-                    class="validate"
-                  />
-                </div>
-              </div>
-			  
-
-              <div class="form-group row">
-                <div class="offset-md-2 col-md-10">
-                  <button class="btn btn-success form-control" type="submit">
-                    Register New Distributor
-                  </button>
-                </div>
-              </div>
-            </form>
-						
-          </div>
-        </div>
-      </div>
-    </div>
 				
 					 		  
             </div>

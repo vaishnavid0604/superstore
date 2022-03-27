@@ -37,14 +37,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
 
  
   <link rel="stylesheet" href="../assets/css/creativetim.min.css" type="text/css">
-  
 
-  <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_b315629468470fd1230c5a1bec6c00575'
-    });
-</script>
 
 </head>
 
@@ -136,13 +129,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
               </a>
             </li>
 			
-			<li class="nav-item">
-              <a href="sstock.php" class="nav-link">
-                <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fad fa-warehouse"></i> Stock</span
-                >
-              </a>
-            </li>
+
 		  
 		   <li class="nav-item">
               <a href="logout.php" class="nav-link">
@@ -187,7 +174,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
 			
 							<div class="card text-white bg-gradient-info mb-3">
 				  <div class="card-header">
-				  <span class=" text-primary display-4" >Sale Entries </span>
+				  <span class=" text-primary display-4" >Dialy Sale Entries </span>
 				  
 					 <button class=" btn btn-success pull-right" data-toggle="modal" data-target="#sale">
                         ADD
@@ -200,6 +187,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
 						  <th>Sales ID</th>
 					  <th>Sales Date</th>
 					  <th>Sales Cost</th>
+					  <th>Remarks</th>
 						</tr>
 						
 						<?php 
@@ -207,7 +195,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
 				  $order59 ="SELECT * FROM sales where SID=$CustID";
 				  $food9 = mysqli_query($conn, $order59);
 				  while($oss55 = mysqli_fetch_assoc($food9))
-				  {echo '<tr><td>'. $oss55["SALESID"]."</td><td>". $oss55["SDATE"] . "</td><td>". $oss55["SCOST"]. "</td></tr>";
+				  {echo '<tr><td>'. $oss55["SALESID"]."</td><td>". $oss55["SDATE"] . "</td><td>". $oss55["SCOST"]. "</td><td>". $oss55["remarks"]. "</td></tr>";
 				  }
 			?>
 				  </table>	
@@ -266,7 +254,8 @@ $query4 = "SELECT * from store where SID='$user_check'";
                     placeholder="Cost In Rupees"
                     id="email"
                     name="email"
-                    type="text"
+                    type="number"
+					min="0"
                     class="validate"
                   />
                 </div>
@@ -296,7 +285,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
 		 
 </section>
 
-    <?php require("../footer.php");?>
+    <?php require("footer.php");?>
 
 </body>
 

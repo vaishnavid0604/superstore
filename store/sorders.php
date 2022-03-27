@@ -37,14 +37,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
 
  
   <link rel="stylesheet" href="../assets/css/creativetim.min.css" type="text/css">
-  
 
-  <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_b315629468470fd1230c5a1bec6c00575'
-    });
-</script>
 
 </head>
 
@@ -136,13 +129,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
               </a>
             </li>
 			
-			<li class="nav-item">
-              <a href="sstock.php" class="nav-link">
-                <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fad fa-warehouse"></i> Stock</span
-                >
-              </a>
-            </li>
+
 		  
 		   <li class="nav-item">
               <a href="logout.php" class="nav-link">
@@ -209,7 +196,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
 						
 				        <?php 
         
-      $order59 ="SELECT s.*,m.DTYPE, m.DNAME FROM strorders s , dstbr m where s.SID=$CustID and m.did=s.did";
+      $order59 ="SELECT * FROM orderlist_store where SID=$CustID ";
       $food9 = mysqli_query($conn, $order59);
       while($oss55 = mysqli_fetch_assoc($food9))
       {echo '<tr>
@@ -293,7 +280,7 @@ $query4 = "SELECT * from store where SID='$user_check'";
 		 
 </section>
 
-    <?php require("../footer.php");?>
+    <?php require("footer.php");?>
 
 </body>
 

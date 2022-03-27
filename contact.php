@@ -1,115 +1,10 @@
-<?php
-
-// Include packages and files for PHPMailer and SMTP protocol
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-
-// Initialize PHP mailer, configure to use SMTP protocol and add credentials
-
-$mail = new PHPMailer();
-$mail->IsSMTP();
-$mail->Mailer = "smtp";
-
-$mail->SMTPDebug  = 0;
-$mail->SMTPAuth   = TRUE;
-$mail->SMTPSecure = "ssl";
-$mail->Port       = 465;
-$mail->Host       = "smtp.gmail.com";
-$mail->Username   = "eclassroom1999@gmail.com";
-$mail->Password   = "mloquiqighoyiytq";
-
-
-$success = "";
-$error = "";
-$name = $message = $email = "";
-$errors = array('name' => '', 'email' => '', 'message' => '');
-$mymail = 'vaishnavid0604@gmail.com';
-$myname = 'Super Store';
-
-
-if (isset($_POST["submit"])) {
-    if (empty(trim($_POST["name"]))) {
-        $errors['name'] = "Your name is required";
-    } else {
-        $name = SanitizeString($_POST["name"]);
-        if (!preg_match('/^[a-zA-Z\s]{6,50}$/', $name)) {
-            $errors['name'] = "Only letters and spaces allowed";
-        }
-    }
-
-    if (empty(trim($_POST["email"]))) {
-        $errors["email"] = "Your email is required";
-    } else {
-        $email = SanitizeString($_POST["email"]);
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors["email"] = "Pls give a proper email address";
-        }
-    }
-
-    if (empty(trim($_POST["message"]))) {
-        $errors["message"] = "Please type your message";
-    } else {
-        $message = SanitizeString($_POST["message"]);
-        if (!preg_match("/^[a-zA-Z\d\s]+$/", $message)) {
-            $errors["message"] = "Only letters, spaces and maybe numbers allowed";
-        }
-    }
-
-    if (array_filter($errors)) {
-    } else {
-        try {
-
-            $mail->setFrom('eclassroom1999@gmail', 'Super Store');
-
-            $mail->addAddress($mymail, $myname);
-
-            $mail->Subject = 'Super Store Management System - Contact Form';
-
-            $mail->Body = $message;
-
-            // send mail
-
-            $mail->send();
-
-            // empty users input
-
-            $name = $message = $email = "";
-
-            $success = "Message sent successfully";
-        } catch (Exception $e) {
-
-            // echo $e->errorMessage(); use for testing & debugging purposes
-            $error = "Sorry message could not send, try again";
-        } catch (Exception $e) {
-
-            // echo $e->getMessage(); use for testing & debugging purposes
-            $error = "Sorry message could not send, try again";
-        }
-    }
-}
-
-function SanitizeString($var)
-{
-    $var = strip_tags($var);
-    $var = htmlentities($var);
-    return stripslashes($var);
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" type="image/png" href="assets/img/logo.png" />
-    <title>Super Store Management System</title>
+    <title>Super Store Sales Management System</title>
 
   <!--     Fonts and icons     -->
   
@@ -123,34 +18,16 @@ function SanitizeString($var)
 	
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="assets/css/creativetim.min.css" type="text/css">
   
-  <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_b315629468470fd1230c5a1bec6c00575'
-    });
-</script>
+  <!-- Nucleo Icons -->
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
 
-    <style>
-        .error {
-            color: white;
-            background-color: crimson;
-            border-radius: 7px;
-            text-align: center;
-        }
+ 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.2.0/tailwind.min.css">
+  <link rel="stylesheet" href="assets/css/creativetim.min.css" type="text/css">
 
-        .success {
-            background-color: darkgreen;
-            color: white;
-            border-radius: 7px;
-            text-align: center;
-        }
-    </style>
 </head>
-
-
 
   <body class="bg-white" id="top">
     <!-- Navbar -->
@@ -220,8 +97,9 @@ function SanitizeString($var)
                 >
               </a>
             </li>
+			
 		  
-		  	  <li class="nav-item">
+				  <li class="nav-item">
 			   <div class="dropdown show ">
 		  <a class="nav-link dropdown-toggle text-white " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		                  <span class="text-white nav-link-inner--text"
@@ -236,15 +114,14 @@ function SanitizeString($var)
 		  </div>
 		</div>
 			</li>
-           
-
+			
           
           </ul>
         </div>
       </div>
     </nav>
     <!-- End Navbar -->
-  
+	 	
   <section class="section section-shaped section-lg">
     <div class="shape shape-style-1 shape-primary">
       <span></span>
@@ -258,123 +135,90 @@ function SanitizeString($var)
       <span></span>
       <span></span>
     </div>
-
-<!-- ======================================================================================================================================== -->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 mx-auto text-center">
-            <span class="badge badge-warning badge-pill mb-3">Contact</span>
-          </div>
-        </div>
-
-        <div class="row row-content align-text-center">
-          <div class="col-12">
-            <div class="col-12">
-              <div class="card card-body bg-dark">
-			  
-			  <div class="success"><?php echo $success ?></div>
-                <div class="error"><?php echo $error ?></div>
-				
-                <form
-                  action="contact.php"
-                  method="post"
-                >
-                  <div class="form-group row">
-                    <label for="name" class="col-md-2 col-form-label"
-                      ><h6 class="text-white">Name</h6>
-                    </label>
-                    <div class="col-md-10">
-                      <input
-                        type="text"
-                        class="form-control"
-                        required
-                        id="name"
-                        name="name"
-                        placeholder="Full Name"
-						value="<?php echo htmlspecialchars($name) ?>"
-                      />
+	
+	
+    <div class="text-gray-100 " >
+        <form action="contact-script.php" method="post">
+            <div class="max-w-screen-xl px-8 grid gap-8 grid-cols-1 md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 py-16 mx-auto bg-gray-100 text-gray-900 rounded-lg shadow-lg">
+                <div class="flex flex-col justify-between">
+                    <div class="mt-2">
+                        <h2 class="text-4xl lg:text-5xl font-bold leading-tight">Lets talk about everything!</h2>
                     </div>
-                  </div>
-
-
-                  <div class="form-group row">
-                    <label for="emailid" class="col-md-2 col-form-label">
-                      <h6 class="text-white">Email</h6></label
-                    >
-                    <div class="col-md-10">
-                      <input
-                        type="email"
-                        class="form-control"
-                        required
-                        id="email"
-                        name="email"
-                        placeholder="abc@xyz.com"
-						value="<?php echo htmlspecialchars($email) ?>"
-                      />
-					                          <div class="error"><?php echo $errors["email"] ?></div>
-
+                    <div class="mt-2">
+                        <span class="uppercase text-sm text-gray-600 font-bold">Full Name</span>
+                        <input class="w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline" type="text" id="user_name" name="user_name" placeholder="Enter your Full Name">
                     </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <label for="feedback" class="col-md-2 col-form-label">
-                      <h6 class="text-white">Message</h6></label
-                    >
-                    <div class="col-md-10">
-                      <textarea
-                        class="form-control"
-                        id="message"
-                        name="message"
-                        placeholder="Your Message..."
-                        rows="5"
-						<?php echo htmlspecialchars($message) ?>
-                      ></textarea>
-					                          <div class="error"><?php echo $errors["message"] ?></div>
-
+                    <div class="mt-2">
+                        <span class="uppercase text-sm text-gray-600 font-bold">Mobile Number</span>
+                        <input class="w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline" type="phone" id="user_mobile" name="user_mobile" pattern="^[6-9]{1}[0-9]{9}$" title="Enter Valid 10 digit Mobile Number (Ex. 76435654XX)" placeholder="Enter your Mobile Number">
                     </div>
-                  </div>
-
-                  <div class="form-group row">
-                    <div class="offset-md-2 col-md-2">
-                      <button
-                        type="submit"
-                        class="btn btn-danger"
-						name="submit" id="submit" value="Send"
-                      >
-                        SEND
-                      </button>
+                    <div class="mt-2">
+                        <span class="uppercase text-sm text-gray-600 font-bold">Email Id</span>
+                        <input class="w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline" type="email" id="user_email" name="user_email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter Valid Email Id (Ex. abc@xyz.com)" placeholder="Enter your Email Id">
                     </div>
-
-                    <div class="offset-md-4 text-justify-content-end">
-                      <div class="btn-group" role="group">
-                        <a
-                          role="button"
-                          class="btn btn-primary"
-                          href="tel:+85212345678"
-                          ><i class="fa fa-phone"></i> Call</a
-                        >
-                        <a role="button" class="btn btn-info" href="#"
-                          ><i class="fa fa-skype"></i> Skype</a
-                        >
-                        <a
-                          role="button"
-                          class="btn btn-success"
-                          href="mailto:vaishnavid0604@gmail.com"
-                          ><i class="fa fa-envelope-o"></i> Email</a
-                        >
-                      </div>
+                </div>
+                <div class="flex flex-col justify-between">
+                    <div class="mt-2">
+                        <span class="uppercase text-sm text-gray-600 font-bold">Address</span>
+                        <input class="w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline" type="text" id="user_address" name="user_address" title="Enter your City Name and Pincode" placeholder="Enter your City/Pincode">
                     </div>
-                  </div>
-                </form>
-              </div>
+ 
+                    <div class="mt-2">
+                        <span class="uppercase text-sm text-gray-600 font-bold">Message</span>
+                        <textarea class="w-full h-32 bg-gray-300 text-gray-900 mt-2 p-7 rounded-lg focus:outline-none focus:shadow-outline" rows="8" id="user_message" name="user_message" title="Enter your Issue in Detail" placeholder="Enter your Issue" required="" autofocus=""></textarea>
+                    </div>
+                    <div class="mt-2">
+                        <button class="uppercase text-sm font-bold tracking-wide bg-indigo-500 text-gray-100 p-3 rounded-lg w-full focus:outline-none focus:shadow-outline" type="submit" name="submit" value="Submit">
+                            Send Message
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="mysuccessModal" data-backdrop="static" style="position: fixed;width: 100%;height: 100%;overflow: auto;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="position: relative;margin: auto;padding: 0;border: 1px solid #888;width: 100%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
+                <!-- Modal Header -->
+                <div class="modal-header" style="background-color: #1A4E85;color: white;">
+                    <h4 class="modal-title">Message</h4>
+                    <button type="button" class="close" onclick="pagesuccessRedirect()">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h3>Thank you for contacting us.</h3>
+                    <h6>You are very important to us, all information received will always remain confidential. We will contact you as soon as we review your message.</h6>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer" style="padding:2px 16px;background-color: #1A4E85;color: white;">
+                    <button type="button" class="btn btn-danger" onclick="pagesuccessRedirect()">Close</button>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 
+    <div class="modal fade" id="myunsuccessModal" data-backdrop="static" style="position: fixed;width: 100%;height: 100%;overflow: auto;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="position: relative;margin: auto;padding: 0;border: 1px solid #888;width: 100%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);">
+                <!-- Modal Header -->
+                <div class="modal-header" style="background-color: #1A4E85;color: white;">
+                    <h4 class="modal-title">Message</h4>
+                    <button type="button" class="close" onclick="pageunsuccessRedirect()">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Error in sending message!!! Please try again.
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer" style="padding:2px 16px;background-color: #1A4E85;color: white;">
+                    <button type="button" class="btn btn-danger" onclick="pageunsuccessRedirect()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-
-	    <?php require("footer.php");?>
+<?php require("footer.php");?>
 
 </body>
 

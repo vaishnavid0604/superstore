@@ -33,14 +33,7 @@ header("location: index.php"); // Redirecting To Home Page
 
  
   <link rel="stylesheet" href="../assets/css/creativetim.min.css" type="text/css">
-  
 
-  <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_b315629468470fd1230c5a1bec6c00575'
-    });
-</script>
 
 </head>
 
@@ -109,24 +102,17 @@ header("location: index.php"); // Redirecting To Home Page
 		  	 <li class="nav-item">
               <a href="dhome.php" class="nav-link">
                 <span class="text-success nav-link-inner--text font-weight-bold"
-                  ><i class="text-success fas fa-home"></i> Home</span
+                  ><i class="text-success fas fa-home"></i>Home </span
                 >
               </a>
             </li>
 		  
-		   <li class="nav-item">
-              <a href="sales.php" class="nav-link">
-                <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-list-alt"></i> Sales Report</span
-                >
-              </a>
-            </li>
 			
 			
 			 <li class="nav-item">
               <a href="distd.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-users"></i> Distributor Details</span
+                  ><i class="text-white fas fa-users"></i> Distributors</span
                 >
               </a>
             </li>
@@ -134,7 +120,15 @@ header("location: index.php"); // Redirecting To Home Page
 			<li class="nav-item">
               <a href="stored.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fad fa-store-alt"></i> Store Details</span
+                  ><i class="text-white fad fa-store-alt"></i> Stores</span
+                >
+              </a>
+            </li>
+			
+			<li class="nav-item">
+              <a href="viewmsg.php" class="nav-link">
+                <span class="text-white nav-link-inner--text font-weight-bold"
+                  ><i class="text-white fas fa-address-card"></i> Queries</span
                 >
               </a>
             </li>
@@ -186,11 +180,10 @@ header("location: index.php"); // Redirecting To Home Page
 				<div class="card">
                 <div class="card-body bg-gradient-warning">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="../assets/img/logo.png" alt="admin" class="rounded-circle" width="177">
+                    <img src="../assets/img/admin.png" alt="admin" class="rounded-circle " width="155">
                     <div class="mt-3">
                       <h4>                Welcome     <?php echo $login_session ?></h4>
                       <p class="text-white mb-1">Store ID: <?php echo $CustID ?> </p>
-                      <p class="text-white font-size-sm">Super Store</p>
 
                     </div>
                   </div>
@@ -205,10 +198,10 @@ header("location: index.php"); // Redirecting To Home Page
 				
                   <ol class="text-justify list-group list-group-flush">
                
-                <li class="list-group-item">Admin have the All the Access to the data in E-CLASSROOM.</li>
-				<li class="list-group-item">Admin can Add new Students, Edit and also he can Delete Students.</li>
-				<li class="list-group-item">Admin can Add new Faculties,(This is the Only way to add New Faculty) Edit and also he can Delete Faculties.</li>
-               <li class="list-group-item"> Admin Also have the access to the Guests who Post Queries and Feedback in the MainPage.</li>
+                <li class="list-group-item">Admin have the All the Access to the data in Superstore.</li>
+				<li class="list-group-item">Admin can Add and view all the Stores.</li>
+				<li class="list-group-item">Admin can Manage Distributors who are providing supplies to the store.</li>
+               <li class="list-group-item"> Admin Also have the access to the Sales report with sorting features..</li>
                 <br>
               </ol>
           
@@ -221,7 +214,7 @@ header("location: index.php"); // Redirecting To Home Page
 		 
 </section>
 
-    <?php require("../footer.php");?>
+    <?php require("footer.php");?>
 
 </body>
 

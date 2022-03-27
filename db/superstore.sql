@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2021 at 12:19 PM
+-- Generation Time: Mar 26, 2022 at 04:27 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `superstore`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `distributordetails` ()  NO SQL
+SELECT * FROM dstbr order by DID$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `storedetails` ()  NO SQL
+SELECT * FROM store order by SID$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -42,13 +54,35 @@ INSERT INTO `admin` (`ANAME`, `APASS`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contactus`
+--
+
+CREATE TABLE `contactus` (
+  `c_id` int(11) NOT NULL,
+  `c_name` varchar(100) NOT NULL,
+  `c_mobile` varchar(100) NOT NULL,
+  `c_email` varchar(100) NOT NULL,
+  `c_address` varchar(500) NOT NULL,
+  `c_message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `contactus`
+--
+
+INSERT INTO `contactus` (`c_id`, `c_name`, `c_mobile`, `c_email`, `c_address`, `c_message`) VALUES
+(6, 'vaishnavid', '9878749887', 'vaishnavi.19cs109@sode-edu.in', 'udupi', 'its qworking');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dstbr`
 --
 
 CREATE TABLE `dstbr` (
   `DID` int(11) NOT NULL,
   `DNAME` varchar(20) NOT NULL,
-  `DPASS` varchar(20) NOT NULL DEFAULT 'admin',
+  `DPASS` varchar(20) NOT NULL DEFAULT 'password',
   `DTYPE` varchar(20) NOT NULL,
   `DLOC` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -58,9 +92,27 @@ CREATE TABLE `dstbr` (
 --
 
 INSERT INTO `dstbr` (`DID`, `DNAME`, `DPASS`, `DTYPE`, `DLOC`) VALUES
-(1000, 'Asus', 'password', 'Laptop', 'Bangalore'),
-(1001, 'Pepsico', 'admin', 'CoolDrinks', 'Hyd'),
-(1003, 'abshetty', 'admin', 'Electrical', 'Bombay');
+(1000, 'ASUS', 'asus@123', 'Laptop', 'Bombay'),
+(1001, 'Pepsico', 'password', 'Soft Drinks', 'Delhi'),
+(1003, 'Nike', 'password', 'Shoes', 'Bombay');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `orderlist_store`
+-- (See below for the actual view)
+--
+CREATE TABLE `orderlist_store` (
+`SID` int(11)
+,`ORDID` int(11)
+,`DID` int(11)
+,`ORDDATE` timestamp
+,`PMYSTAT` varchar(20)
+,`SHPMODE` varchar(20)
+,`SHPSTAT` varchar(20)
+,`DTYPE` varchar(20)
+,`DNAME` varchar(20)
+);
 
 -- --------------------------------------------------------
 
@@ -72,36 +124,30 @@ CREATE TABLE `sales` (
   `SALESID` int(11) NOT NULL,
   `SDATE` varchar(20) NOT NULL,
   `SCOST` int(11) NOT NULL,
-  `SID` int(11) NOT NULL
+  `SID` int(11) NOT NULL,
+  `remarks` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`SALESID`, `SDATE`, `SCOST`, `SID`) VALUES
-(201, '2021-12-21', 10000, 100),
-(231, '2021-12-21', 2000, 100);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stock`
---
-
-CREATE TABLE `stock` (
-  `CRY` varchar(20) NOT NULL,
-  `SCRY` varchar(20) NOT NULL,
-  `QUANT` int(11) NOT NULL,
-  `SID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `sales` (`SALESID`, `SDATE`, `SCOST`, `SID`, `remarks`) VALUES
+(201, '2021-12-21', 10950, 100, 'Good Day'),
+(232, '2021-12-22', 5500, 100, 'Not Your Day'),
+(237, '2021-12-28', 34943, 100, 'Good Day'),
+(238, '2021-12-29', 15600, 101, 'Good Day'),
+(239, '2021-12-29', 5600, 102, 'Not Your Day'),
+(240, '2021-12-29', 19400, 103, 'Good Day'),
+(241, '2022-02-08', 1000, 100, 'Not Your Day');
 
 --
--- Dumping data for table `stock`
+-- Triggers `sales`
 --
-
-INSERT INTO `stock` (`CRY`, `SCRY`, `QUANT`, `SID`) VALUES
-('Electronics', 'Mobiles', 30, 100);
+DELIMITER $$
+CREATE TRIGGER `remarks` BEFORE INSERT ON `sales` FOR EACH ROW set NEW.remarks = if(NEW.SCOST >= 10000,'Good Day','Not Your Day')
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -111,7 +157,7 @@ INSERT INTO `stock` (`CRY`, `SCRY`, `QUANT`, `SID`) VALUES
 
 CREATE TABLE `store` (
   `SID` int(11) NOT NULL,
-  `SPASS` varchar(20) NOT NULL DEFAULT 'admin',
+  `SPASS` varchar(20) NOT NULL DEFAULT 'password',
   `SBRANCHNAME` varchar(20) NOT NULL,
   `SCITY` varchar(20) NOT NULL,
   `SREGION` varchar(20) NOT NULL,
@@ -124,10 +170,18 @@ CREATE TABLE `store` (
 --
 
 INSERT INTO `store` (`SID`, `SPASS`, `SBRANCHNAME`, `SCITY`, `SREGION`, `SSTATE`, `SPCODE`) VALUES
-(100, 'password', 'Madhuvana', 'Udupi', 'South India', 'Karnataka', 576230),
+(100, 'password', 'Madhuvana', 'Udupi', 'South India', 'Karnataka', 576210),
 (101, 'password', 'Silk Zone', 'Mangalore', 'South India', 'Karnataka', 573467),
-(102, 'password', 'D Mart', 'Udupi', 'South India', 'Karnataka', 576210),
-(103, 'password', 'Big Bazar', 'Manglore', 'South India', 'Karnataka', 576210);
+(102, 'password', 'D Mart', 'Kota', 'North India', 'Rajasthan', 576210),
+(103, 'password', 'Big Bazar', 'Mangalore', 'South India', 'Karnataka', 576210);
+
+--
+-- Triggers `store`
+--
+DELIMITER $$
+CREATE TRIGGER `ondeletestore` AFTER DELETE ON `store` FOR EACH ROW delete from strorders where strorders.sid=old.sid
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -140,8 +194,8 @@ CREATE TABLE `strorders` (
   `ORDID` int(11) NOT NULL,
   `DID` int(11) NOT NULL,
   `ORDDATE` timestamp NOT NULL DEFAULT current_timestamp(),
-  `PMYSTAT` varchar(20) NOT NULL DEFAULT 'PENDING',
-  `SHPMODE` varchar(20) NOT NULL DEFAULT 'Normal',
+  `PMYSTAT` varchar(20) NOT NULL DEFAULT 'UNPAID',
+  `SHPMODE` varchar(20) NOT NULL DEFAULT 'NORMAL',
   `SHPSTAT` varchar(20) NOT NULL DEFAULT 'PENDING'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -150,61 +204,64 @@ CREATE TABLE `strorders` (
 --
 
 INSERT INTO `strorders` (`SID`, `ORDID`, `DID`, `ORDDATE`, `PMYSTAT`, `SHPMODE`, `SHPSTAT`) VALUES
-(100, 509, 1000, '2021-12-21 16:14:17', 'PAID', 'PREMIUM', 'DELIVERED'),
-(100, 510, 1003, '2021-12-21 16:14:22', 'PENDING', 'Normal', 'PENDING'),
-(100, 511, 1001, '2021-12-21 16:14:32', 'PENDING', 'Normal', 'PENDING'),
-(100, 512, 1000, '2021-12-21 17:11:03', 'UNPAID', 'NORMAL', 'PENDING'),
-(100, 513, 1003, '2021-12-21 17:24:00', 'PENDING', 'Normal', 'PENDING');
+(100, 509, 1000, '2021-12-21 16:14:17', 'UNPAID', 'NORMAL', 'PENDING'),
+(100, 510, 1003, '2021-12-21 16:14:22', 'UNPAID', 'NORMAL', 'PENDING'),
+(100, 511, 1001, '2021-12-21 16:14:32', 'PAID', 'NORMAL', 'PENDING'),
+(100, 512, 1000, '2021-12-21 17:11:03', 'PAID', 'NORMAL', 'PENDING'),
+(100, 513, 1003, '2021-12-21 17:24:00', 'PAID', 'NORMAL', 'DELIVERED'),
+(100, 515, 1000, '2021-12-28 15:06:42', 'UNPAID', 'NORMAL', 'PENDING'),
+(101, 516, 1000, '2021-12-29 06:04:23', 'PAID', 'PREMIUM', 'DELIVERED'),
+(102, 517, 1001, '2021-12-29 06:09:16', 'UNPAID', 'NORMAL', 'PENDING'),
+(103, 518, 1003, '2021-12-29 06:11:22', 'UNPAID', 'NORMAL', 'PENDING');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t`
+-- Stand-in structure for view `view_queries`
+-- (See below for the actual view)
 --
+CREATE TABLE `view_queries` (
+`c_id` int(11)
+,`c_name` varchar(100)
+,`c_mobile` varchar(100)
+,`c_email` varchar(100)
+,`c_address` varchar(500)
+,`c_message` text
+);
 
-CREATE TABLE `t` (
-  `temp` varchar(20) NOT NULL,
-  `tee` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `t`
+-- Structure for view `orderlist_store`
 --
+DROP TABLE IF EXISTS `orderlist_store`;
 
-INSERT INTO `t` (`temp`, `tee`) VALUES
-('509', '2021-12-22 06:47:54'),
-('509', '2021-12-22 06:48:09'),
-('509', '2021-12-22 06:48:19'),
-('509', '2021-12-22 06:50:38'),
-('509', '2021-12-22 06:55:28'),
-('509', '2021-12-22 09:44:06'),
-('509', '2021-12-22 10:14:49'),
-('509', '2021-12-22 10:14:58'),
-('509', '2021-12-22 10:15:25'),
-('509', '2021-12-22 10:16:05'),
-('509', '2021-12-22 10:17:41'),
-('509', '2021-12-22 10:18:27'),
-('512', '2021-12-22 10:24:07'),
-('509', '2021-12-22 10:25:45'),
-('509', '2021-12-22 10:26:10'),
-('509', '2021-12-22 10:35:54'),
-('512', '2021-12-22 10:36:03'),
-('512', '2021-12-22 10:36:46'),
-('509', '2021-12-22 10:37:14'),
-('509', '2021-12-22 10:38:11'),
-('509', '2021-12-22 10:42:24'),
-('509', '2021-12-22 10:42:46'),
-('509', '2021-12-22 10:42:56'),
-('509', '2021-12-22 10:43:03'),
-('509', '2021-12-22 10:43:16'),
-('512', '2021-12-22 10:43:22'),
-('512', '2021-12-22 10:43:32'),
-('509', '2021-12-22 10:50:39'),
-('SREGION', '2021-12-22 11:07:26');
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `orderlist_store`  AS SELECT `s`.`SID` AS `SID`, `s`.`ORDID` AS `ORDID`, `s`.`DID` AS `DID`, `s`.`ORDDATE` AS `ORDDATE`, `s`.`PMYSTAT` AS `PMYSTAT`, `s`.`SHPMODE` AS `SHPMODE`, `s`.`SHPSTAT` AS `SHPSTAT`, `m`.`DTYPE` AS `DTYPE`, `m`.`DNAME` AS `DNAME` FROM (`strorders` `s` join `dstbr` `m`) WHERE `m`.`DID` = `s`.`DID` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_queries`
+--
+DROP TABLE IF EXISTS `view_queries`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_queries`  AS SELECT `contactus`.`c_id` AS `c_id`, `contactus`.`c_name` AS `c_name`, `contactus`.`c_mobile` AS `c_mobile`, `contactus`.`c_email` AS `c_email`, `contactus`.`c_address` AS `c_address`, `contactus`.`c_message` AS `c_message` FROM `contactus` ;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`ANAME`);
+
+--
+-- Indexes for table `contactus`
+--
+ALTER TABLE `contactus`
+  ADD PRIMARY KEY (`c_id`);
 
 --
 -- Indexes for table `dstbr`
@@ -217,12 +274,6 @@ ALTER TABLE `dstbr`
 --
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`SALESID`);
-
---
--- Indexes for table `stock`
---
-ALTER TABLE `stock`
-  ADD KEY `SID` (`SID`);
 
 --
 -- Indexes for table `store`
@@ -242,38 +293,38 @@ ALTER TABLE `strorders`
 --
 
 --
+-- AUTO_INCREMENT for table `contactus`
+--
+ALTER TABLE `contactus`
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `dstbr`
 --
 ALTER TABLE `dstbr`
-  MODIFY `DID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1010;
+  MODIFY `DID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1012;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `SALESID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
+  MODIFY `SALESID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=242;
 
 --
 -- AUTO_INCREMENT for table `store`
 --
 ALTER TABLE `store`
-  MODIFY `SID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `SID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `strorders`
 --
 ALTER TABLE `strorders`
-  MODIFY `ORDID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=514;
+  MODIFY `ORDID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=521;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `stock`
---
-ALTER TABLE `stock`
-  ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`SID`) REFERENCES `store` (`SID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `strorders`

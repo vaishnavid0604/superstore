@@ -38,13 +38,7 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
 
  
   <link rel="stylesheet" href="../assets/css/creativetim.min.css" type="text/css">
-  
-  <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_b315629468470fd1230c5a1bec6c00575'
-    });
-</script>
+
 
 </head>
 
@@ -128,14 +122,6 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
               </a>
             </li>
 			
-			<li class="nav-item">
-              <a href="dordupdate.php" class="nav-link">
-                <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-wrench"></i> Order Update</span
-                >
-              </a>
-            </li>
-			
 		  
 		   <li class="nav-item">
               <a href="logout1.php" class="nav-link">
@@ -182,53 +168,63 @@ $query4 = "SELECT * from dstbr where DID='$user_check'";
 				  <div class="card-header">
 				  <span class=" text-primary display-4" >Recent Orders</span>
 				  
-					 <a class=" btn btn-danger pull-right" href="dordupdate.php">
-                        UPDATE
-                      </a>
+					 
 				  </div>
 				  
 				  <div class="card-body text-white">
-					 <table class="table table-reponsive table-striped table-hover table-bordered bg-gradient-white text-center">
+					 <table class="table table-reponsive table-fluid table-striped table-hover table-bordered bg-gradient-white text-center">
 						<tr class="font-weight-bold text-default">
 						  <th>Order ID</th>
 						  <th>Store ID</th>
-						  <th>Dist ID</th>
-						  <th>Dist Name</th>
+		
 						  <th>Order Date</th>
-						  <th>Category</th>
 						  <th>Payment Status</th>
 						  <th>Shipment Mode</th>
-						  <th> Status</th>
+						  <th>Delivery Status</th>
+						  <th> Update Order</th>
 						</tr>
-						
-        <?php 
-        
-      $order59 ="SELECT s.*,m.DTYPE, m.DNAME FROM strorders s , dstbr m where m.DID=$CustID and m.did=s.did";
-      $food9 = mysqli_query($conn, $order59);
-      while($oss55 = mysqli_fetch_assoc($food9))
-      {echo '<tr>
-	  <td>'. $oss55["ORDID"]."</td>
-	  <td>". $oss55["SID"]."</td>
-	  <td>". $oss55["DID"]."</td>
-		  <td>". $oss55["DNAME"]."</td>
-	  <td>". $oss55["ORDDATE"]."</td>
-	<td>". $oss55["DTYPE"]."</td>
-	<td>". $oss55["PMYSTAT"]."</td>
-	<td>". $oss55["SHPMODE"]."</td>
-	<td>". $oss55["SHPSTAT"]."</td>
-		</tr>";
-      }
-?>
-				  </table>	
-				  </div>
-				</div>
+		
+        <?php 		
+		
+      $q ="  select * from strorders where DID=$CustID ORDER BY ORDID DESC";
+      $query = mysqli_query($conn, $q);
+      while($res = mysqli_fetch_array($query))
+      {
 	
+			$oid=$res['ORDID'];
+		    $sid=$res['SID'];
+			$date=$res['ORDDATE'];
+			$pstat=$res['PMYSTAT'];
+			$smode=$res['SHPMODE'];
+			$sstat=$res['SHPSTAT'];			
+							
+				 ?>		  
+				 
+				 	<tr>
+				<td><?php echo $oid ?></td>
+				  <td><?php echo $sid ?></td>
+				  <td><?php echo $date ?></td>
+				  <td><?php echo $pstat ?></td>
+				  <td><?php echo $smode ?></td>
+				  <td><?php echo $sstat ?></td>
+							<td><button class="btn btn-sm btn-warning" data-toggle="modal" type="button" data-target="#update_modal<?php echo $res['ORDID']?>"><span class="glyphicon glyphicon-edit"></span> Update</button></td>
+
+					</tr>
+					
+		<?php
+					
+					include 'updateord.php';
+					
+					}
+				?>
+  </table>	
+  
 		</div>
 	</div>
 	</div>
 </section>
 
-    <?php require("../footer.php");?>
+    <?php require("footer.php");?>
 
 </body>
 

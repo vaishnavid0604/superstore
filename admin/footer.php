@@ -2,7 +2,7 @@
         <div class="container">
                     <div class="row">         
                 <div class="col-4 col-md-2   align-self-center">				
-                    <img class="align-text-center img-fluid"  src="assets/img/logo.png" />               
+                    <img class="align-text-center img-fluid"  src="../assets/img/logo.png" />               
                 </div>				
                 <div class="offset-sm-2 col-5 ">
                     <h5>Our Address</h5>

@@ -35,13 +35,6 @@ header("location: index.php"); // Redirecting To Home Page
   <link rel="stylesheet" href="../assets/css/creativetim.min.css" type="text/css">
   
 
-  <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_b315629468470fd1230c5a1bec6c00575'
-    });
-</script>
-
 </head>
 
 
@@ -109,24 +102,17 @@ header("location: index.php"); // Redirecting To Home Page
 		  	 <li class="nav-item">
               <a href="dhome.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-home"></i> Home</span
+                  ><i class="text-white fas fa-home"></i>Home </span
                 >
               </a>
             </li>
 		  
-		   <li class="nav-item">
-              <a href="sales.php" class="nav-link">
-                <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-list-alt"></i> Sales Report</span
-                >
-              </a>
-            </li>
 			
 			
 			 <li class="nav-item">
               <a href="distd.php" class="nav-link">
                 <span class="text-white nav-link-inner--text font-weight-bold"
-                  ><i class="text-white fas fa-users"></i> Distributor Details</span
+                  ><i class="text-white fas fa-users"></i> Distributors</span
                 >
               </a>
             </li>
@@ -134,7 +120,15 @@ header("location: index.php"); // Redirecting To Home Page
 			<li class="nav-item">
               <a href="stored.php" class="nav-link">
                 <span class="text-success nav-link-inner--text font-weight-bold"
-                  ><i class="text-success fad fa-store-alt"></i> Store Details</span
+                  ><i class="text-success fad fa-store-alt"></i> Stores</span
+                >
+              </a>
+            </li>
+			
+			<li class="nav-item">
+              <a href="viewmsg.php" class="nav-link">
+                <span class="text-white nav-link-inner--text font-weight-bold"
+                  ><i class="text-white fas fa-address-card"></i> Queries</span
                 >
               </a>
             </li>
@@ -201,16 +195,36 @@ header("location: index.php"); // Redirecting To Home Page
 						  <th>Branch Region</th>
 						  <th>Branch State</th>
 						  <th>Pincode</th>
+						  <th>Delete</th>
 						</tr>
 						
 						<?php 
-					  $order59 ="SELECT * FROM store order by SID";
+					  $order59 ="call storedetails";
 					  $food9 = mysqli_query($conn, $order59);
-					  while($oss55 = mysqli_fetch_assoc($food9))
-					  {echo '<tr><td>'. $oss55["SID"]."</td><td>". $oss55["SBRANCHNAME"] . "</td><td>". $oss55["SCITY"]. "</td><td>".$oss55["SREGION"]."
-					</td><td>".$oss55["SSTATE"]."
-					</td><td>".$oss55["SPCODE"]."</td></tr>";
-					  }
+					  while($res = mysqli_fetch_assoc($food9))
+					  {
+						  $bname=$res['SBRANCHNAME'];
+							$id=$res['SID'];
+							$region=$res['SREGION'];
+							$city=$res['SCITY'];
+							$state=$res['SSTATE'];
+							$pcode=$res['SPCODE'];
+				 ?>		  
+						  
+				<tr>
+				<td><?php echo $id ?></td>
+				  <td><?php echo $bname ?></td>
+				  <td><?php echo $region ?></td>
+				  <td><?php echo $city ?></td>
+				  <td><?php echo $state ?></td>
+				  <td><?php echo $pcode ?></td>
+	<td data-label="delete"> <button class="btn btn-sm btn-danger" > <a href="deletestore.php?sid=<?php echo $id ?>" class="nav-link text-white"  data-toggle="tooltip">Delete</a> </button> </td>
+
+					</tr>
+					
+			<?php
+			
+			}
 				?>
 				  </table>			
 				  </div>
@@ -345,7 +359,7 @@ header("location: index.php"); // Redirecting To Home Page
 		 
 </section>
 
-    <?php require("../footer.php");?>
+    <?php require("footer.php");?>
 
 </body>
 
